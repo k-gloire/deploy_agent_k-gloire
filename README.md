@@ -51,4 +51,3 @@ The script also handles these edge cases:
 .If the project folder already exists, it will warn you instead of overwriting it
 .If you enter a non-numeric threshold value, the script rejects it and uses the default values (75% warning, 50% failure)
 .If Python 3 is not found, you get a clear warning message instead of a crash
-
