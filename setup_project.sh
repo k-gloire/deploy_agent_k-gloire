@@ -12,7 +12,7 @@ cleanup() {
         rm -rf attendance_tracker_$name
     fi
 
-    echo "Cleanup done. Exiting safely."
+    echo "Cleanup done. Exiting"
     exit 1
 }
 
@@ -24,7 +24,7 @@ if [ -d "attendance_tracker_$name" ]; then
     exit 1
 fi
 
-#We create the dirrectory structure
+#We create the directory structure
 mkdir -p attendance_tracker_$name/Helpers
 mkdir -p attendance_tracker_$name/reports
 
@@ -126,14 +126,14 @@ sed -i "s/\"failure\": *[0-9]\+/\"failure\": $failure/" attendance_tracker_$name
 echo "Configuration updated successfully."
 
 #We check the python installation and health
-echo "Checking Python installation..."
+echo "Checking Python installation.."
 
 if command -v python3 >/dev/null 2>&1
 then
     echo "Python3 is installed."
     python3 --version
 else
-    echo "Warning: Python3 is not installed."
+    echo "Python3 is not installed."
 fi
 
 echo "Setup completed successfully."
