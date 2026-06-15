@@ -3,9 +3,9 @@
 echo "Enter your name:"
 read name
 
-
+#Handle Ctrl+C
 cleanup() {
-    echo "Interrupted"
+    echo "Interrupted!! Saving the project..."
 
     if [ -d "attendance_tracker_$name" ]; then
         tar -czf attendance_tracker_${name}_archive.tar.gz attendance_tracker_$name
@@ -18,17 +18,17 @@ cleanup() {
 
 trap cleanup SIGINT
 
-
+#Check if project already exists
 if [ -d "attendance_tracker_$name" ]; then
     echo "Project already exists."
     exit 1
 fi
 
-
+#We create the dirrectory structure
 mkdir -p attendance_tracker_$name/Helpers
 mkdir -p attendance_tracker_$name/reports
 
-
+#Create config.json
 cat > attendance_tracker_$name/Helpers/config.json << EOF
 {
     "thresholds": {
@@ -40,7 +40,7 @@ cat > attendance_tracker_$name/Helpers/config.json << EOF
 }
 EOF
 
-
+#Create assets.csv
 cat > attendance_tracker_$name/Helpers/assets.csv << EOF
 Email,Names,Attendance Count,Absence Count
 alice@example.com,Alice Johnson,14,1
@@ -49,7 +49,7 @@ charlie@example.com,Charlie Davis,4,11
 diana@example.com,Diana Prince,15,0
 EOF
 
-
+#Create attendance_checker.py
 cat > attendance_tracker_$name/attendance_checker.py << 'EOF'
 import csv
 import json
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     run_attendance_check()
 EOF
 
-
+#Create reports.log
 cat > attendance_tracker_$name/reports/reports.log << 'EOF'
 
 --- Attendance Report Run: 2026-02-06 18:10:01.468726 ---
@@ -106,26 +106,26 @@ EOF
 
 echo "Project structure created successfully."
 
-
+#We get the thresholds
 echo "Enter warning threshold (default 75):"
 read warning
 
 echo "Enter failure threshold (default 50):"
 read failure
 
-
+#We validate the input
 if [[ ! "$warning" =~ ^[0-9]+$ ]] || [[ ! "$failure" =~ ^[0-9]+$ ]]; then
     echo "Thresholds must be numbers."
     exit 1
 fi
 
-
+#Update config.json
 sed -i "s/\"warning\": *[0-9]\+/\"warning\": $warning/" attendance_tracker_$name/Helpers/config.json
 sed -i "s/\"failure\": *[0-9]\+/\"failure\": $failure/" attendance_tracker_$name/Helpers/config.json
 
 echo "Configuration updated successfully."
 
-
+#We check the python installation and health
 echo "Checking Python installation..."
 
 if command -v python3 >/dev/null 2>&1
