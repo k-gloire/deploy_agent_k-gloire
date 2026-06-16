@@ -5,4 +5,4 @@ The script also includes error handling and process management. If the user inte
 
 To run the project: ./setup_project.sh
 
-Video Link:
+Video Link:https://www.loom.com/share/b93198be584e4fa18b03a770adf6c50e
