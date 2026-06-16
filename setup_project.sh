@@ -50,7 +50,7 @@ diana@example.com,Diana Prince,15,0
 EOF
 
 #Create attendance_checker.py
-cat > attendance_tracker_$name/attendance_checker.py << 'EOF'
+cat > attendance_tracker_$name/attendance_checker.py << EOF
 import csv
 import json
 import os
